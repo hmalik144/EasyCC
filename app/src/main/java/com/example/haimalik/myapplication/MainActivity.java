@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinnerTop;
     Spinner spinnerBottom;
     double conversionRateOne;
+    ProgressBar spinner;
 
     private String URL = "https://free.currencyconverterapi.com/api/v3/convert?";
 
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         currencyOneEditText.addTextChangedListener(TextWatcherClass);
         currencyTwoEditText.addTextChangedListener(TextWatcherClass2);
 
-
+        spinner = (ProgressBar) findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         addListenerOnSpinnerItemSelection();
 
@@ -283,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Double doInBackground(String... urlString) {
             String jsonResponse = null;
+
             if (urlString.length < 1 || urlString[0] == null) {
                 return null;
             }
@@ -300,10 +304,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            spinner.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(Double result) {
             super.onPostExecute(result);
 
             conversionRateOne = result;
+            spinner.setVisibility(View.GONE);
 
         }
 
