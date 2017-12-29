@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 String currencyOne = parentView.getItemAtPosition(pos).toString();
                 currencyTwoEditText.setText("");
                 currencyOneEditText.setText("");
-                currencyOneEditText.setHint("insert " + currencyOne);
+                currencyOneEditText.setHint("insert " + currencyOne.substring(0,3));
 
                 String stringURL = UriBuilder();
                 MyAsyncTask task = new MyAsyncTask();
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 String currencyTwo = parentView.getItemAtPosition(pos).toString();
                 currencyOneEditText.setText("");
                 currencyTwoEditText.setText("");
-                currencyTwoEditText.setHint("insert " + currencyTwo);
+                currencyTwoEditText.setHint("insert " + currencyTwo.substring(0,3));
 
                 String stringURL = UriBuilder();
                 MyAsyncTask task = new MyAsyncTask();
@@ -188,8 +188,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String UriBuilder(){
-        String currencyOne = spinnerTop.getSelectedItem().toString();
-        String currencyTwo = spinnerBottom.getSelectedItem().toString();
+        String currencyOne = (spinnerTop.getSelectedItem().toString()).substring(0,3);
+        String currencyTwo = (spinnerBottom.getSelectedItem().toString()).substring(0,3);
 
         Uri baseUri = Uri.parse(URL);
         Uri.Builder builder = baseUri.buildUpon();
@@ -263,8 +263,8 @@ public class MainActivity extends AppCompatActivity {
 
     private double extractFeatureFromJson(String newsJSON) {
         double conversionValue = 0.00;
-        String currencyOne = spinnerTop.getSelectedItem().toString();
-        String currencyTwo = spinnerBottom.getSelectedItem().toString();
+        String currencyOne = spinnerTop.getSelectedItem().toString().substring(0,3);
+        String currencyTwo = spinnerBottom.getSelectedItem().toString().substring(0,3);
 
         if (TextUtils.isEmpty(newsJSON)) {
             return 0.00;
